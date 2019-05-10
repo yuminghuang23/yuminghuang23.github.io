@@ -39,19 +39,6 @@
           stroke-width: 0;
         }
         
-            
-    #wrap { width: 600px; height: 390px; padding: 0; overflow: hidden; }
-    #frame { width: 800px; height: 520px; border: 1px solid black; }
-    #frame {
-        -ms-zoom: 0.75;
-        -moz-transform: scale(0.75);
-        -moz-transform-origin: 0 0;
-        -o-transform: scale(0.75);
-        -o-transform-origin: 0 0;
-        -webkit-transform: scale(0.75);
-        -webkit-transform-origin: 0 0;
-    }
-        
     </style>
    <head>
        <script type = "text/javascript" src = "https://d3js.org/d3.v4.min.js"></script>
@@ -113,6 +100,7 @@
                     .ticks(10)
             };
           
+          function redraw(){ 
        // format data to 0 decimal places
        var format = d3.format(".0f")
        // read data
@@ -376,7 +364,12 @@
 
 
         });
+              // Draw for the first time to initialize.
+      redraw();
 
+      // Redraw based on the new size whenever the browser window is resized.
+      window.addEventListener("resize", redraw);
       </script>
    </body>
+
 </html>
