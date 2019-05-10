@@ -95,7 +95,7 @@
             // gridlines in y axis function
             function make_y_gridlines() {		
                 return d3.axisLeft(yBar)
-                    .ticks(10)
+                    .ticks(5)
             };
           
        var format = d3.format(".0f")
@@ -277,7 +277,7 @@
               .attr("dy", "1em")
               .style("fill",'#9f0000')
               .style("text-anchor", "middle")
-              .text("Percentage of Recorded Pain %");  
+              .text("Percentage of Recorded Joint Pain %");  
            
            // y1-axis label, Pressure
            svg.append("text")
