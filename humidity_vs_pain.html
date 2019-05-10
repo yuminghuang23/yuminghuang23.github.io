@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+    <style> /* set the CSS */
+
+        .line {
+          fill: none;
+          stroke: steelblue;
+          stroke-width: 4px;
+        }
+
+        .axisSteelBlue text{
+          fill: steelblue;
+        }
+
+        .axisRed text{
+          fill: red;
+        }
+        
+        div.tooltip {	
+            position: absolute;			
+            text-align: center;			
+            width: 70px;					
+            height: 28px;					
+            padding: 2px;				
+            font: 12px sans-serif;		
+            background: lightsteelblue;	
+            border: 0px;		
+            border-radius: 8px;			
+            pointer-events: none;			
+        }
+        
+        .grid line {
+          stroke: lightgrey;
+          stroke-opacity: 1;
+          shape-rendering: crispEdges;
+        }
+
+        .grid path {
+          stroke-width: 0;
+        }
+        
+    </style>
+   <head>
+       <script type = "text/javascript" src = "https://d3js.org/d3.v4.min.js"></script>
+    </head>
+   <body>
+      
+      <script>
+             
+       // set the dimensions and margins of the graph
+        var margin = {top: 20, right: 40, bottom: 30, left: 50},
+            width = 960 - margin.left - margin.right,
+            height = 600 - margin.top - margin.bottom;
+        
+        // parse the date / time
+        var parseTime = d3.timeParse("%d-%b-%y");
+          
+        // set the ranges
+        var xBar = d3.scaleBand().range([0, width]).paddingInner(0.4).paddingOuter(0.4);
+        var xLine = d3.scalePoint().range([0, width]).padding(0.5);
+        var yBar = d3.scaleLinear().range([500, 0]);
+        var yLine = d3.scaleLinear().range([500, 0]);
+        
+        
+        // define the 1st line
+        var valueline = d3.line()
+            .x(function(d) { return xLine(d.Month); })
+            .y(function(d) { return yLine(d.Humidity); });
+
+        // define the 2nd line
+        //var valueline2 = d3.line()
+            //.x(function(d) { return xLine(d.Month); })
+            //.y(function(d) { return yLine(d.line2); });
+
+        // append the svg obgect to the body of the page
+        // appends a 'group' element to 'svg'
+        // moves the 'group' element to the top left margin
+        var svg = d3.select("body").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+          
+        
+        // Define the div for the tooltip
+        var div = d3.select("body").append("div")	
+            .attr("class", "tooltip")				
+            .style("opacity", 0);
+      
+          
+        // gridlines in x axis function
+            function make_x_gridlines() {		
+                return d3.axisBottom(xBar)
+                    .ticks(5)
+            };
+
+            // gridlines in y axis function
+            function make_y_gridlines() {		
+                return d3.axisLeft(yBar)
+                    .ticks(10)
+            };
+          
+       // format data to 0 decimal places
+       var format = d3.format(".0f")
+       // read data
+       d3.csv("WeatherVsPain.csv", function(data){
+            // format the data
+           
+           data.forEach(function(d) {
+              d.Pain = +format((d.Pain)/1533*100);
+              d.Temp = +d.Temp;
+              d.Humidity = +d.Humidity;
+              d.Pressure = +d.Pressure;
+          });
+           console.log(data);
+          
+        // Scale the range of the data
+          xBar.domain(data.map(function(d) { return d.Month; }));
+          xLine.domain(data.map(function(d) { return d.Month; }));
+          yBar.domain([0,30]).nice();
+          //yBar.domain([0, d3.max(data, function(d) { return d.Pain; })]).nice();
+          yLine.domain([0,90]).nice();
+         // yLine.domain([0, d3.max(data, function(d) {return Math.max(d.Temp, d.Temp); })]).nice();
+           
+             
+          // add grid
+          // add the X gridlines
+         /* svg.append("g")			
+              .attr("class", "grid")
+              .attr("transform", "translate(0," + 500 + ")")
+              .call(make_x_gridlines()
+                  .tickSize(-height)
+                  .tickFormat("")
+              );
+           */
+          // add the Y gridlines
+          svg.append("g")			
+              .attr("class", "grid")
+              .call(make_y_gridlines()
+                  .tickSize(-width)
+                  .tickFormat("")
+              );
+           
+          // Add the valueline path.
+          svg.append("path")
+              .data([data])
+              .attr("class", "line")
+              .style("stroke", "steelblue")
+              .attr("d", valueline);
+
+          // Add the valueline2 path.
+          //svg.append("path")
+        //      .data([data])
+        //      .attr("class", "line")
+        //      .style("stroke", "crimson")
+        //      .attr("d", valueline2);
+
+          var rect = svg.selectAll("rect")
+              .data(data);
+           
+          // bar
+          rect.enter().append("rect")
+            .merge(rect)
+              .attr("class", "bar")
+              .style("stroke", "none")
+              .style("fill", "#9f0000")
+              .attr("x", function(d){ return xBar(d.Month); })
+              .attr("width", function(d){ return xBar.bandwidth(); })
+              .attr("y", function(d){ return yBar(d.Pain); })
+              .attr("height", function(d){ return 500 - yBar(d.Pain); })
+                    .on("mouseover", function(d) {		
+                div.transition()		
+                    .duration(20)		
+                    .style("opacity", .9);		
+                div.html((d.Month) + "<br/>" + d.Pain + "% people")	
+                    .style("left", (d3.event.pageX) + "px")		
+                    .style("top", (d3.event.pageY) + "px");	
+                })					
+                .on("mouseout", function(d) {		
+                    div.transition()		
+                        .duration(50)		
+                        .style("opacity", 0); });
+                ;
+           
+           rect.append("text")
+               .attr("class", "label")
+               .attr("y", function (d) {
+                  return yBar(d.Pain);
+            })
+               .attr("x", function (d) {
+                  return xBar(d.Pain);
+           })
+               .text(function (d) {
+                  return d.value;
+               
+               
+            });
+
+          /*
+          // circle on data 
+          var points2 = svg.selectAll("circle.point2")
+              .data(data)
+
+          points2.enter().append("circle")
+            //.merge(points2)
+              .attr("class", "point2")
+              .style("stroke", "steelblue")
+              .style("stroke-width", 3)
+              .style("fill", "none")
+              .attr("cx", function(d){ return xLine(d.Month); })
+              .attr("cy", function(d){ return yLine(d.Temp); })
+              .attr("r", 12)
+               .on("mouseover", function(d) {		
+                div.transition()		
+                    .duration(20)		
+                    .style("opacity", .9);		
+                div.html((d.Month) + "<br/>"  + d.Temp + "°C ")	
+                    .style("left", d + "px")		
+                    .style("top", d + "px");	
+                })					
+                .on("mouseout", function(d) {		
+                    div.transition()		
+                        .duration(50)		
+                        .style("opacity", 0); }) */
+
+          var points1 = svg.selectAll("circle.point1")
+              .data(data)
+
+          points1.enter().append("circle")
+            .merge(points1)
+              .attr("class", "point1")
+              .style("stroke", "steelblue")
+                .style("fill", "steelblue")
+              .attr("cx", function(d){ return xLine(d.Month); })
+              .attr("cy", function(d){ return yLine(d.Humidity); })
+              .attr("r", function(d){ return 5; })
+                .on("mouseover", function(d) {		
+                div.transition()		
+                    .duration(20)		
+                    .style("opacity", .9);		
+                div.html(d.Month + "<br/>"  + d.Humidity + "%")	
+                    .style("left", (d3.event.pageX) + "px")		
+                    .style("top", (d3.event.pageY) + "px");	
+                })					
+                .on("mouseout", function(d) {		
+                    div.transition()		
+                        .duration(50)		
+                        .style("opacity", 0); });
+
+
+          // Add the X Axis
+          svg.append("g")
+              .attr("transform", "translate(0," + 500 + ")")
+              .call(d3.axisBottom(xLine));
+
+          // Add the Y0 Axis
+          svg.append("g")
+              .attr("class", "axisRed")
+              .call(d3.axisLeft(yBar));
+          
+           
+          // Add the Y1 Axis
+          svg.append("g")
+              .attr("class", "axisSteelBlue")
+              .attr("transform", "translate( " + width + ", 0 )")
+              .call(d3.axisRight(yLine));
+           
+          // x-axis label
+          svg.append("text")             
+             .attr("transform","translate(" + (width/2) + " ," + 
+                (height) + ")")
+             .style("text-anchor", "middle")
+             .text("Month");
+           
+           // y0-axis label, bar
+           svg.append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", 0 - margin.left)
+              .attr("x",0 - (height / 2))
+              .attr("dy", "1em")
+              .style("fill",'#9f0000')
+              .style("text-anchor", "middle")
+              .text("Percentage of People with Pains");  
+           
+           // y1-axis label, humidity
+           svg.append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", width + margin.right - 18)
+              .attr("x",0 - (height / 2))
+              .attr("dy", "1em")
+              .style("text-anchor", "middle")
+              .style("fill",'SteelBlue')
+              .text("Relative Humidity %");  
+           
+           // title
+           svg.append("text")
+              .attr("x", width / 2 )
+              .attr("y", 0)
+              .style("text-anchor", "middle")
+              .text("Relateive Humidity vs Percentage of People with Pains")
+           
+           // label data on bar
+            svg.selectAll(".text")        
+               .data(data)
+               .enter()
+               .append("text")
+               .attr("class","label")
+               .attr("x", (function(d) { return xBar(d.Month) + 42; }  ))
+               .attr("y", function(d) { return yBar(d.Pain) + 8; })
+               .attr("dy", ".75em")
+               .text(function(d) { return d.Pain + "%"; });  
+           
+           // label data on line
+            svg.selectAll(".text")        
+               .data(data)
+               .enter()
+               .append("text")
+               .attr("class","label")
+               .attr("x", (function(d) { return xLine(d.Month) - 15; }  ))
+               .attr("y", function(d) { return yLine(d.Humidity) - 35; })
+               .attr("dy", ".75em")
+               //.attr("font-weight","bold")
+               .style("font-size", "13px")
+               .text(function(d) { return d.Humidity + "%"; }); 
+           
+           // legend
+           const colors = ["#4682b4","#9f0000"];
+           // set a two length array for number of legends
+           var lengedlenth = ["Relateive Humidity %", "Percentage of People with Pains"]
+           
+           var legend = svg.append('g')
+                .attr('class', 'legend')
+                .attr('transform', 'translate(' +  12 + ', 0)');
+
+           legend.selectAll('rect')
+                .data(lengedlenth)
+                .enter()
+                .append('rect')
+                .attr('x', 10)
+                .attr('y', function(d, i){
+                    return (i * 18)+30;
+                })
+                .attr('width', 12)
+                .attr('height', 12)
+                .attr('fill', function(d, i){
+                    return colors[i];
+                });
+           
+            legend.selectAll('text')
+                  .data(lengedlenth)
+                  .enter()
+                  .append('text')
+                  .text(function(d){
+                     return d;
+                  })
+                  .attr('x', 30)
+                  .attr('y', function(d, i){
+                    return (i * 18)+30;
+                  })
+                  .attr('text-anchor', 'start')
+                  .attr('alignment-baseline', 'hanging')
+                  .style("font-size", "13px");
+
+
+        });
+
+      </script>
+   </body>
+</html>
