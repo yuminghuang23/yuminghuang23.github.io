@@ -281,7 +281,7 @@
               .attr("dy", "1em")
               .style("fill",'#9f0000')
               .style("text-anchor", "middle")
-              .text("Percentage of People with Pains");  
+              .text("Percentage of People with Joints Pains");  
            
            // y1-axis label, humidity
            svg.append("text")
@@ -298,7 +298,7 @@
               .attr("x", width / 2 )
               .attr("y", 0)
               .style("text-anchor", "middle")
-              .text("Relateive Humidity vs Percentage of People with Pains")
+              .text("Relateive Humidity vs Percentage of People with Joints Pains")
            
            // label data on bar
             svg.selectAll(".text")        
@@ -327,7 +327,7 @@
            // legend
            const colors = ["#4682b4","#9f0000"];
            // set a two length array for number of legends
-           var lengedlenth = ["Relateive Humidity %", "Percentage of People with Pains"]
+           var lengedlenth = ["Relateive Humidity %", "Percentage of People with Joints Pains"]
            
            var legend = svg.append('g')
                 .attr('class', 'legend')
