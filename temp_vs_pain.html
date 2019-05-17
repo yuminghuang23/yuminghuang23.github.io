@@ -342,7 +342,7 @@
                 .data(lengedlenth)
                 .enter()
                 .append('rect')
-                .attr('x', 10)
+                .attr('x', -15)
                 .attr('y', function(d, i){
                     return (i * 18)+520;
                 })
@@ -359,13 +359,13 @@
                   .text(function(d){
                      return d;
                   })
-                  .attr('x', 30)
+                  .attr('x', 0)
                   .attr('y', function(d, i){
-                    return (i * 18)+520;
+                    return (i * 18)+523;
                   })
                   .attr('text-anchor', 'start')
                   .attr('alignment-baseline', 'hanging')
-                  .style("font-size", "13px");
+                  .style("font-size", "10px");
 
            
         });
