@@ -282,6 +282,7 @@ function drawGraphic() {
                 550 + ")")
              .style("text-anchor", "middle")
              .style("font-family",'"Lato", sans-serif')
+             .style("font-size","12px")
              .text("Month");
            
            // y0-axis label, bar
@@ -293,6 +294,7 @@ function drawGraphic() {
               .style("fill",'#9f0000')
               .style("text-anchor", "middle")
               .style("font-family",'"Lato", sans-serif')
+              .style("font-size","12px")
               .text("Percentage of People with Joints Pain (%)");  
            
            // y1-axis label, humidity
@@ -304,6 +306,7 @@ function drawGraphic() {
               .style("text-anchor", "middle")
               .style("fill",'SteelBlue')
               .style("font-family",'"Lato", sans-serif')
+              .style("font-size","12px")
               .text("Relative Humidity (%)");  
            
            // title
@@ -311,7 +314,7 @@ function drawGraphic() {
               .attr("x", width / 2 )
               .attr("y", 0)
               .style("text-anchor", "middle")
-              .style("font-size","20px")
+              .style("font-size","12px")
               .style("font-family",'"Lato", sans-serif')
               .text("Relative Humidity vs Percentage of Joints Pain")
            
@@ -333,11 +336,11 @@ function drawGraphic() {
                .enter()
                .append("text")
                .attr("class","label")
-               .attr("x", (function(d) { return xLine(d.Month); }  ))
-               .attr("y", function(d) { return yLine(d.Humidity) - margin.left/2; })
+               .attr("x", (function(d) { return xLine(d.Month) - margin.left/4; }  ))
+               .attr("y", function(d) { return yLine(d.Humidity) - margin.left/1.5 ; })
                .attr("dy", ".75em")
                //.attr("font-weight","bold")
-               .style("font-size", "13px")
+               .style("font-size", "10px")
                .style("font-family",'"Lato", sans-serif')
                .text(function(d) { return d.Humidity + "%"; }); 
            

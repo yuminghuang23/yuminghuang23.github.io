@@ -270,6 +270,7 @@
                 550 + ")")
              .style("text-anchor", "middle")
              .style("font-family",'"Lato", sans-serif')
+             .style("font-size","12px")
              .text("Month");
            
            // y0-axis label, bar
@@ -281,6 +282,7 @@
               .style("fill",'#9f0000')
               .style("text-anchor", "middle")
               .style("font-family",'"Lato", sans-serif')
+              .style("font-size","12px")
               .text("Percentage of Recorded Joints Pain (%)");  
            
            // y1-axis label, Pressure
@@ -292,6 +294,7 @@
               .style("text-anchor", "middle")
               .style("fill",'gray')
               .style("font-family",'"Lato", sans-serif')
+              .style("font-size","12px")
               .text("Barometric Pressure (hPa)");  
            
            // title
@@ -299,7 +302,7 @@
               .attr("x", width / 2 )
               .attr("y", 0)
               .style("text-anchor", "middle")
-              .style("font-size","20px")
+              .style("font-size","12px")
               .style("font-family",'"Lato", sans-serif')
               .text("Barometric Pressure vs Percentage of Joints Pain")
            
@@ -321,13 +324,13 @@
                .enter()
                .append("text")
                .attr("class","label")
-               .attr("x", (function(d) { return xLine(d.Month)-margin.left/1.5; }  ))
+               .attr("x", (function(d) { return xLine(d.Month)-margin.left/1.75; }  ))
                .attr("y", function(d) { return yLine(d.Pressure) - margin.left/2; })
                .attr("dy", ".75em")
-               .style("font-size", "8px")
+               .style("font-size", "12px")
                .style("font-family",'"Lato", sans-serif')
                //.attr("font-weight","bold")
-               .text(function(d) { return d.Pressure + "hPa"; });  
+               .text(function(d) { return d.Pressure + " hPa"; });  
            
            // legend
            const colors = ["#808080","#9f0000"];
