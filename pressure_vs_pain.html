@@ -22,7 +22,8 @@
             width: 70px;					
             height: 28px;					
             padding: 2px;				
-            font: 12px sans-serif;		
+            font-family: 'Lato', sans-serif;
+            font-size: 12px;	
             background: lightsteelblue;	
             border: 0px;		
             border-radius: 8px;			
@@ -47,9 +48,9 @@
       <script>
              
        // set the dimensions and margins of the graph
-        var margin = {top: 20, right: 40, bottom: 30, left: 50},
-            width = 960 - margin.left - margin.right,
-            height = 600 - margin.top - margin.bottom;
+        var margin = {top: 20, right: 40, bottom: 30, left: 40},
+            width = window.innerWidth - margin.left*2 - margin.right*2,
+            height = window.innerHeight - margin.top*2 - margin.bottom*2;
         
         // parse the date / time
         var parseTime = d3.timeParse("%d-%b-%y");
@@ -129,14 +130,14 @@
                   .tickSize(-height)
                   .tickFormat("")
               );
-           */
+           
           // add the Y gridlines
           svg.append("g")			
               .attr("class", "grid")
               .call(make_y_gridlines()
                   .tickSize(-width)
                   .tickFormat("")
-              );
+              ); */
            
           // Add the valueline path.
           svg.append("path")
@@ -181,6 +182,7 @@
            
            rect.append("text")
                .attr("class", "label")
+               .style("font-family",'"Lato", sans-serif')
                .attr("y", function (d) {
                   return yBar(d.Pain);
             })
@@ -258,8 +260,8 @@
            
           // Add the Y1 Axis
           svg.append("g")
-              .attr("class", "axisGray")
-              .attr("transform", "translate( " + 860  + ", 0 )")
+              .attr("class", "axisOrange")
+              .attr("transform", "translate( " + (width -5) + ", 0 )")
               .call(d3.axisRight(yLine));
            
           // x-axis label
@@ -267,6 +269,7 @@
              .attr("transform","translate(" + (width/2) + " ," + 
                 (height) + ")")
              .style("text-anchor", "middle")
+             .style("font-family",'"Lato", sans-serif')
              .text("Month");
            
            // y0-axis label, bar
@@ -277,7 +280,8 @@
               .attr("dy", "1em")
               .style("fill",'#9f0000')
               .style("text-anchor", "middle")
-              .text("Percentage of Recorded Joint Pains %");  
+              .style("font-family",'"Lato", sans-serif')
+              .text("Percentage of Recorded Joint Pains (%)");  
            
            // y1-axis label, Pressure
            svg.append("text")
@@ -287,7 +291,8 @@
               .attr("dy", "1em")
               .style("text-anchor", "middle")
               .style("fill",'gray')
-              .text("Barometric Pressure hPa");  
+              .style("font-family",'"Lato", sans-serif')
+              .text("Barometric Pressure (hPa)");  
            
            // title
            svg.append("text")
@@ -295,10 +300,11 @@
               .attr("y", 0)
               .style("text-anchor", "middle")
               .style("font-size","20px")
-              .text("Barometric Pressure (hPa) vs Percentage of People with Joint Pains (%)")
+              .style("font-family",'"Lato", sans-serif')
+              .text("Barometric Pressure vs Percentage of Joints Pains")
            
            // label data on bar 
-            
+            /*
            svg.selectAll(".text")        
                .data(data)
                .enter()
@@ -307,7 +313,7 @@
                .attr("x", (function(d) { return xBar(d.Month) + 42; }  ))
                .attr("y", function(d) { return yBar(d.Pain) + 8; })
                .attr("dy", ".75em")
-               .text(function(d) { return d.Pain + "%"; });   
+               .text(function(d) { return d.Pain + "%"; });   */
            
            // label data on line
             svg.selectAll(".text")        
@@ -319,13 +325,14 @@
                .attr("y", function(d) { return yLine(d.Pressure) - 35; })
                .attr("dy", ".75em")
                .style("font-size", "11px")
+               .style("font-family",'"Lato", sans-serif')
                //.attr("font-weight","bold")
                .text(function(d) { return d.Pressure + "hPa"; });  
            
            // legend
            const colors = ["#808080","#9f0000"];
            // set a two length array for number of legends
-           var lengedlenth = ["Barometric Pressure hPa", "Percentage of People with Joint Pains"]
+           var lengedlenth = ["Barometric Pressure (hPa)", "Percentage of People with Joints Pain (%)"]
            
            var legend = svg.append('g')
                 .attr('class', 'legend')
@@ -335,9 +342,9 @@
                 .data(lengedlenth)
                 .enter()
                 .append('rect')
-                .attr('x', 10)
+                .attr('x', -15)
                 .attr('y', function(d, i){
-                    return (i * 18)+35.5;
+                    return (i * 18)+520;
                 })
                 .attr('width', 12)
                 .attr('height', 12)
@@ -352,13 +359,14 @@
                   .text(function(d){
                      return d;
                   })
-                  .attr('x', 30)
+                  .attr('x', 0)
                   .attr('y', function(d, i){
-                    return (i * 18)+35.5;
+                    return (i * 18)+523;
                   })
                   .attr('text-anchor', 'start')
                   .attr('alignment-baseline', 'hanging')
-                  .style("font-size", "13px");
+                  .style("font-size", "10px")
+                  .style("font-family",'"Lato", sans-serif');
 
 
         });
