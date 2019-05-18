@@ -58,8 +58,8 @@
         // set the ranges
         var xBar = d3.scaleBand().range([0, width]).paddingInner(0.4).paddingOuter(0.4);
         var xLine = d3.scalePoint().range([0, width]).padding(0.5);
-        var yBar = d3.scaleLinear().range([500, 0]);
-        var yLine = d3.scaleLinear().range([500, 0]);
+        var yBar = d3.scaleLinear().range([(height-margin.bottom), 0]);
+        var yLine = d3.scaleLinear().range([(height-margin.bottom), 0]);
         
         
         // define the 1st line
@@ -165,7 +165,7 @@
               .attr("x", function(d){ return xBar(d.Month); })
               .attr("width", function(d){ return xBar.bandwidth(); })
               .attr("y", function(d){ return yBar(d.Pain); })
-              .attr("height", function(d){ return 500 - yBar(d.Pain); })
+              .attr("height", function(d){ return (height-margin.bottom) - yBar(d.Pain); })
                     .on("mouseover", function(d) {		
                 div.transition()		
                     .duration(20)		
@@ -249,7 +249,7 @@
 
           // Add the X Axis
           svg.append("g")
-              .attr("transform", "translate(0," + 500 + ")")
+              .attr("transform", "translate(0," + (height-margin.bottom) + ")")
               .call(d3.axisBottom(xLine));
 
           // Add the Y0 Axis
@@ -267,7 +267,7 @@
           // x-axis label
           svg.append("text")             
              .attr("transform","translate(" + (width/2) + " ," + 
-                550 + ")")
+                height + ")")
              .style("text-anchor", "middle")
              .style("font-family",'"Lato", sans-serif')
              .style("font-size","12px")
@@ -327,7 +327,7 @@
                .attr("x", (function(d) { return xLine(d.Month)-margin.left/1.75; }  ))
                .attr("y", function(d) { return yLine(d.Pressure) - margin.left/2; })
                .attr("dy", ".75em")
-               .style("font-size", "12px")
+               .style("font-size", "7px")
                .style("font-family",'"Lato", sans-serif')
                //.attr("font-weight","bold")
                .text(function(d) { return d.Pressure + " hPa"; });  
@@ -347,7 +347,7 @@
                 .append('rect')
                 .attr('x', -15)
                 .attr('y', function(d, i){
-                    return (i * 18)+520;
+                    return (i * 15)+height-10;
                 })
                 .attr('width', 12)
                 .attr('height', 12)
@@ -364,7 +364,7 @@
                   })
                   .attr('x', 0)
                   .attr('y', function(d, i){
-                    return (i * 18)+523;
+                    return (i * 15)+height-10;
                   })
                   .attr('text-anchor', 'start')
                   .attr('alignment-baseline', 'hanging')
