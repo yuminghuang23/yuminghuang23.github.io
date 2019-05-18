@@ -281,7 +281,7 @@
               .style("fill",'#9f0000')
               .style("text-anchor", "middle")
               .style("font-family",'"Lato", sans-serif')
-              .text("Percentage of Recorded Joint Pains (%)");  
+              .text("Percentage of Recorded Joints Pain (%)");  
            
            // y1-axis label, Pressure
            svg.append("text")
@@ -301,7 +301,7 @@
               .style("text-anchor", "middle")
               .style("font-size","20px")
               .style("font-family",'"Lato", sans-serif')
-              .text("Barometric Pressure vs Percentage of Joints Pains")
+              .text("Barometric Pressure vs Percentage of Joints Pain")
            
            // label data on bar 
             /*
@@ -321,10 +321,10 @@
                .enter()
                .append("text")
                .attr("class","label")
-               .attr("x", (function(d) { return xLine(d.Month); }  ))
+               .attr("x", (function(d) { return xLine(d.Month)-margin.left/1.5; }  ))
                .attr("y", function(d) { return yLine(d.Pressure) - margin.left/2; })
                .attr("dy", ".75em")
-               .style("font-size", "11px")
+               .style("font-size", "8px")
                .style("font-family",'"Lato", sans-serif')
                //.attr("font-weight","bold")
                .text(function(d) { return d.Pressure + "hPa"; });  
