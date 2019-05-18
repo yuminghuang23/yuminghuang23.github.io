@@ -124,9 +124,9 @@
         // Scale the range of the data
           xBar.domain(data.map(function(d) { return d.Month; }));
           xLine.domain(data.map(function(d) { return d.Month; }));
-          yBar.domain([0,44]).nice();
+          yBar.domain([0,35]).nice();
           //yBar.domain([0, d3.max(data, function(d) { return d.Pain; })]).nice();
-          yLine.domain([0,25]).nice();
+          yLine.domain([-10,25]).nice();
          // yLine.domain([0, d3.max(data, function(d) {return Math.max(d.Temp, d.Temp); })]).nice();
          
             
