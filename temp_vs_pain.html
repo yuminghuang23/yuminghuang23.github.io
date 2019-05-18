@@ -280,7 +280,7 @@
           // x-axis label
           svg.append("text")             
              .attr("transform","translate(" + (width/2) + " ," + 
-                (height+margin.bottom) + ")")
+                (height) + ")")
              .style("text-anchor", "middle")
              .style("font-family",'"Lato", sans-serif')
              .style("font-size","12px")
@@ -343,13 +343,13 @@
                .attr("dy", ".75em")
                //.attr("font-weight","bold")
                .text(function(d) { return d.Temp + " °C"; })
-               .style("font-size", "10px")
+               .style("font-size", "8px")
                 .style("font-family",'"Lato", sans-serif');  
            
            // legend
-           const colors = ["#FFA500","#9f0000"];
+           const colors = ["#FFA500","#9f0000",'#ffffff'];
            // set a two length array for number of legends
-           var lengedlenth = ["Temperature °C", "Percentage of People with Joints Pain"]
+           var lengedlenth = ["Temperature °C", "Percentage of People", "with Joints Pain"]
            
            var legend = svg.append('g')
                 .attr('class', 'legend')
@@ -361,7 +361,7 @@
                 .append('rect')
                 .attr('x', -15)
                 .attr('y', function(d, i){
-                    return (i * 18)+height+margin.bottom/10;
+                    return (i * 15)+height-10;
                 })
                 .attr('width', 12)
                 .attr('height', 12)
@@ -378,7 +378,7 @@
                   })
                   .attr('x', 0)
                   .attr('y', function(d, i){
-                    return (i * 18)+height+margin.bottom/10;
+                    return (i * 15)+height-10;
                   })
                   .attr('text-anchor', 'start')
                   .attr('alignment-baseline', 'hanging')
