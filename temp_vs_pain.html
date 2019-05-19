@@ -53,7 +53,7 @@
        
       
       <script>
-             
+   function drawGraphic() {            
        // set the dimensions and margins of the graph
         var margin = {top: 20, right: 40, bottom: 30, left: 40},
             width = window.innerWidth - margin.left*2 - margin.right*2,
@@ -349,7 +349,7 @@
            // legend
            const colors = ["#FFA500","#9f0000",'#ffffff'];
            // set a two length array for number of legends
-           var lengedlenth = ["Temperature °C", "Percentage of People", "with Joints Pain"]
+           var lengedlenth = ["Temperature °C", "Percentage of People", "with Joints Pain (%)"]
            
            var legend = svg.append('g')
                 .attr('class', 'legend')
@@ -387,7 +387,20 @@
 
            
         });
+           };
           
+     drawGraphic();
+          
+          var resizeTimer;
+            window.onresize = function(event) {
+             clearTimeout(resizeTimer);
+              resizeTimer = setTimeout(function()
+              {
+                var s = d3.selectAll('svg');
+                s = s.remove();
+                drawGraphic();
+              }, 100);
+            }
       </script>
    </body>
 </html>
