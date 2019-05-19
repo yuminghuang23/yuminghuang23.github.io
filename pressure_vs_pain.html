@@ -319,7 +319,7 @@
                .attr("x", (function(d) { return xBar(d.Month) + 42; }  ))
                .attr("y", function(d) { return yBar(d.Pain) + 8; })
                .attr("dy", ".75em")
-               .text(function(d) { return d.Pain + "%"; });   */
+               .text(function(d) { return d.Pain + "%"; });   
            
            // label data on line
             svg.selectAll(".text")        
@@ -334,11 +334,11 @@
                .style("font-family",'"Lato", sans-serif')
                //.attr("font-weight","bold")
                .text(function(d) { return d.Pressure + " hPa"; });  
-           
+           */
            // legend
            const colors = ["#808080","#9f0000",'#ffffff'];
            // set a two length array for number of legends
-           var lengedlenth = ["Barometric Pressure (hPa)", "Percentage of People", "with Joints Pain"]
+           var lengedlenth = ["Barometric Pressure (hPa)", "Percentage of People", "with Joints Pain (%)"]
            
            var legend = svg.append('g')
                 .attr('class', 'legend')
