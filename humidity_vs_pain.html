@@ -387,10 +387,9 @@ function drawGraphic() {
         });
          
     };
-    
-    window.onresize = function() {
-     drawGraphic(0, true);  
-      }  
+          
+     drawGraphic();  
+        
           // Use a timer so the chart is not constantly redrawn while window is being resized.
 var resizeTimer;
 window.onresize = function(event) {
