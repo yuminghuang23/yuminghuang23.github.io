@@ -348,9 +348,9 @@
                 .data(lengedlenth)
                 .enter()
                 .append('rect')
-                .attr('x', -15)
+                .attr('x', 0)
                 .attr('y', function(d, i){
-                    return (i * 15)+height-10;
+                    return (i * 15)+(height/2);
                 })
                 .attr('width', 12)
                 .attr('height', 12)
@@ -365,9 +365,9 @@
                   .text(function(d){
                      return d;
                   })
-                  .attr('x', 0)
+                  .attr('x', 15)
                   .attr('y', function(d, i){
-                    return (i * 15)+height-10;
+                    return (i * 15)+(height/2);
                   })
                   .attr('text-anchor', 'start')
                   .attr('alignment-baseline', 'hanging')
