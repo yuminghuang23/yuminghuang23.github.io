@@ -270,14 +270,14 @@
           // Add the Y0 Axis
           svg.append("g")
               .attr("class", "axisRed")
-              .style("font-size",(width * 0.001) + "em")
+              .style("font-size",(width * 0.0007) + "em")
               .call(d3.axisLeft(yBar));
           
            
           // Add the Y1 Axis
           svg.append("g")
               .attr("class", "axisOrange")
-              .style("font-size",(width * 0.001) + "em")
+              .style("font-size",(width * 0.0007) + "em")
               .attr("transform", "translate( " + width + ", 0 )")
               .call(d3.axisRight(yLine));
            
