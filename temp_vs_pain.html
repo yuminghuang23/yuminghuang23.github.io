@@ -206,6 +206,7 @@
                   .attr("x", function(d) { return (xBar.bandwidth()); })
                     .attr("y", function(d) { return yBar(d.Pain); })
                     .style("text-anchor", "middle")
+                    .style("font-size",(width * 0.0010) + "em")
                     .style("font-family",'"Lato", sans-serif');
 
           /*
@@ -283,7 +284,7 @@
                 (height) + ")")
              .style("text-anchor", "middle")
              .style("font-family",'"Lato", sans-serif')
-             .style("font-size",(width * 0.0010) + "em")
+             .style("font-size","12px")
              .text("Month");
            
            // y0-axis label, bar
@@ -295,7 +296,7 @@
               .style("fill",'#9f0000')
               .style("text-anchor", "middle")
               .style("font-family",'"Lato", sans-serif')
-              .style("font-size",(width * 0.0010) + "em")
+              .style("font-size","12px")
               .text("Percentage of People with Joints Pain (%)");  
            
            // y1-axis label, temp
@@ -307,7 +308,7 @@
               .style("text-anchor", "middle")
               .style("fill",'#FFA500')
               .style("font-family",'"Lato", sans-serif')
-              .style("font-size",(width * 0.0010) + "em")
+              .style("font-size","12px")
               .text("Temperature °C ");
               
            
@@ -316,7 +317,7 @@
               .attr("x", width / 2 )
               .attr("y", 0)
               .style("text-anchor", "middle")
-              .style("font-size",(width * 0.0010) + "em")
+              .style("font-size","12px")
               .style("font-family",'"Lato", sans-serif')
               .text("Temperature vs Percentage of Joints Pain");
            
@@ -382,7 +383,7 @@
                   })
                   .attr('text-anchor', 'start')
                   .attr('alignment-baseline', 'hanging')
-                  .style("font-size", (width * 0.0008) + "em")
+                  .style("font-size",(width * 0.0008) + "em")
                   .style("font-family",'"Lato", sans-serif');
 
            
