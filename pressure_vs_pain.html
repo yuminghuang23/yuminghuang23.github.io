@@ -53,8 +53,7 @@
        
       
       <script>
-          //disable console log
-        console.log = function(){}
+         
         
    function drawGraphic() {            
        // set the dimensions and margins of the graph
@@ -395,9 +394,16 @@
               {
                 var s = d3.selectAll('svg');
                 s = s.remove();
-                drawGraphic();
+                if (window.innerHeight < 200){
+                    console.log("too small")
+                }
+                else {
+                    console.log('big enough')
+                    drawGraphic();}
               }, 100);
             }
+                                       
+  
       </script>
    </body>
 </html>
