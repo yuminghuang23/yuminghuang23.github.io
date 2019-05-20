@@ -269,8 +269,8 @@
           // Add the Y1 Axis
           svg.append("g")
               .attr("class", "axisGrey")
-              .style("font-size",(width * 0.0007) + "em")
-              .attr("transform", "translate( " + (width-15) + ", 0 )")
+              .style("font-size",(width * 0.0005) + "em")
+              .attr("transform", "translate( " + (width-5) + ", 0 )")
               .call(d3.axisRight(yLine));
            
           // x-axis label
@@ -304,7 +304,7 @@
               .style("fill",'#808080')
               .style("font-family",'"Lato", sans-serif')
               .style("font-size","12px")
-              .text("Barometric Pressure");
+              .text("Barometric Pressure (hPa)");
               
            
            // title
