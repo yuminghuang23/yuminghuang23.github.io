@@ -264,20 +264,20 @@
           // Add the X Axis
           svg.append("g")
               .attr("transform", "translate(0," + (height-margin.bottom) + ")")
-              .style("font-size",(width * 0.0010) + "em")
+              .style("font-size",(width * 0.001) + "em")
               .call(d3.axisBottom(xLine));
 
           // Add the Y0 Axis
           svg.append("g")
               .attr("class", "axisRed")
-              .style("font-size",(width * 0.0010) + "em")
+              .style("font-size",(width * 0.001) + "em")
               .call(d3.axisLeft(yBar));
           
            
           // Add the Y1 Axis
           svg.append("g")
               .attr("class", "axisOrange")
-              .style("font-size",(width * 0.0010) + "em")
+              .style("font-size",(width * 0.001) + "em")
               .attr("transform", "translate( " + width + ", 0 )")
               .call(d3.axisRight(yLine));
            
@@ -386,7 +386,7 @@
                   })
                   .attr('text-anchor', 'start')
                   .attr('alignment-baseline', 'hanging')
-                  .style("font-size", "10px")
+                  .style("font-size",(width * 0.001) + "em")
                   .style("font-family",'"Lato", sans-serif');
 
            
