@@ -113,7 +113,7 @@
               d.Humidity = +d.Humidity;
               d.Pressure = +d.Pressure;
           });
-           console.log(data);
+         //  console.log(data);
           
         // Scale the range of the data
           xBar.domain(data.map(function(d) { return d.Month; }));
@@ -181,23 +181,7 @@
                     div.transition()		
                         .duration(50)		
                         .style("opacity", 0); });
-                ;
-           
-           rect.append("text")
-               .attr("class", "label")
-               .style("font-family",'"Lato", sans-serif')
-               .attr("y", function (d) {
-                  return yBar(d.Pain);
-            })
-               .attr("x", function (d) {
-                  return xBar(d.Pain);
-           })
-               .text(function (d) {
-                  return d.value;
-               
-               
-            });
-
+            
           /*
           // circle on data 
           var points2 = svg.selectAll("circle.point2")
