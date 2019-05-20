@@ -199,6 +199,7 @@
                 //d3.select(this).attr("r", 10).style("fill", "#9f0000")
                 });
            
+           // not doing anything
            rect.append("text")
                   .text(function(d){
                     return d.Pain + '%';
@@ -206,7 +207,6 @@
                   .attr("x", function(d) { return (xBar.bandwidth()); })
                     .attr("y", function(d) { return yBar(d.Pain); })
                     .style("text-anchor", "middle")
-                    .style("font-size",(width * 0.0010) + "em")
                     .style("font-family",'"Lato", sans-serif');
 
           /*
@@ -264,17 +264,20 @@
           // Add the X Axis
           svg.append("g")
               .attr("transform", "translate(0," + (height-margin.bottom) + ")")
+              .style("font-size",(width * 0.0010) + "em")
               .call(d3.axisBottom(xLine));
 
           // Add the Y0 Axis
           svg.append("g")
               .attr("class", "axisRed")
+              .style("font-size",(width * 0.0010) + "em")
               .call(d3.axisLeft(yBar));
           
            
           // Add the Y1 Axis
           svg.append("g")
               .attr("class", "axisOrange")
+              .style("font-size",(width * 0.0010) + "em")
               .attr("transform", "translate( " + width + ", 0 )")
               .call(d3.axisRight(yLine));
            
@@ -383,7 +386,7 @@
                   })
                   .attr('text-anchor', 'start')
                   .attr('alignment-baseline', 'hanging')
-                  .style("font-size",(width * 0.0008) + "em")
+                  .style("font-size", "10px")
                   .style("font-family",'"Lato", sans-serif');
 
            
