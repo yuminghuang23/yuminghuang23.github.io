@@ -53,6 +53,9 @@
    <body>
       
       <script>
+        //disable console log
+        console.log = function(){};
+          
     function drawGraphic() {         
        // set the dimensions and margins of the graph
         var margin = {top: 20, right: 30, bottom: 30, left: 30},
@@ -190,7 +193,9 @@
                     div.transition()		
                         .duration(50)		
                         .style("opacity", 0); });
-        
+        data.forEach(function(d) {
+            console.log((height-margin.bottom) - d.Pain)
+        })
           // circle on data 
           var points2 = svg.selectAll("circle.point2")
               .data(data)
