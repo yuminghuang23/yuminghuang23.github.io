@@ -56,7 +56,7 @@
           //disable console log
         console.log = function(){}
         
-           
+   function drawGraphic() {            
        // set the dimensions and margins of the graph
         var margin = {top: 20, right: 30, bottom: 30, left: 40},
             width = window.innerWidth - margin.left*2 - margin.right*2,
@@ -384,7 +384,20 @@
 
            
         });
-  
+           };
+          
+     drawGraphic();
+          
+          var resizeTimer;
+            window.onresize = function(event) {
+             clearTimeout(resizeTimer);
+              resizeTimer = setTimeout(function()
+              {
+                var s = d3.selectAll('svg');
+                s = s.remove();
+                drawGraphic();
+              }, 100);
+            }
       </script>
    </body>
 </html>
