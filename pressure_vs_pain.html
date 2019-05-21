@@ -243,7 +243,7 @@
                 div.transition()		
                     .duration(20)		
                     .style("opacity", .9);		
-                div.html(d.Month + "<br/>"  + d.Pressure + " hPa")	
+                div.html(d.Month + "<br/>"  + d.Pressure + " mb")	
                     .style("left", (d3.event.pageX) + "px")		
                     .style("top", (d3.event.pageY) + "px");	
                 })					
@@ -304,7 +304,7 @@
               .style("fill",'#808080')
               .style("font-family",'"Lato", sans-serif')
               .style("font-size","12px")
-              .text("Barometric Pressure (hPa)");
+              .text("Barometric Pressure (mb)");
               
            
            // title
@@ -345,7 +345,7 @@
            // legend
            const colors = ["#808080","#9f0000",'#ffffff'];
            // set a two length array for number of legends
-           var lengedlenth = ["Barometric Pressure (hPa)", "Percentage of People", "with Joints Pain (%)"]
+           var lengedlenth = ["Barometric Pressure (mb)", "Percentage of People", "with Joints Pain (%)"]
            
            var legend = svg.append('g')
                 .attr('class', 'legend')
