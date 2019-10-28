@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+    div.sticky {
+          top: 0;
+          padding: 0.1px;
+          background-color: #cae8ca;
+        }
+    
+    h1 {
+          padding-left: 10px;
+      }
+    h2 {
+          padding-left: 10px;
+          padding-bottom: 10px;
+          top: 20px;
+          color:burlywood;
+        }
+    h4 {
+          padding-left: 45px;
+        }
+    h5 {
+          padding-left: 45px;
+        }
+    
+    div.tooltip2 { 
+          position: fixed;     
+          text-align: center;     
+          width: 30px;          
+          height: 15px;         
+          padding: 0px;       
+          font: 12px sans-serif;    
+          background: lightblue;
+          border: 0px;  
+          border-radius: 4px;	
+          pointer-events: none;     
+      }
+    
+    container {
+        float: right
+    }
+    
+    ul {
+        width: 35em
+    }
+    
+    #buttonplayer{
+            position:absolute;
+            top:50px;
+            right:100px;
+            width: 140px;
+        }
+        
+    #buttonwages{
+            position:absolute;
+            top:30px;
+            right:100px;
+            width: 140px;
+        }
+        
+    #changepage {
+            position:absolute;
+            top:10px;
+            right:100px;
+            height: 250px;
+        }
+    
+    #radarTitle{
+            position:absolute;
+            top:130px;
+            left:640px;
+            font: 12px;
+        }
+    
+    #select {
+            position:absolute;
+            font: 12px sans-serif;
+            top:170px;
+            left:725px;
+            font: 12px;
+        }
+    
+    #leagues {
+            position:absolute;
+            top:200px;
+            left:700px;
+        }
+    
+    #fieldpos {
+            position:absolute;
+            top:200px;
+            left:800px;
+        }
+    
+    #radar {
+        position:absolute;
+        top:220px;
+        left:420px;
+        }
+    
+    #VisualizationSec{
+            position:absolute;
+            font: 13px sans-serif;
+            width:380px;
+            top:160px;
+            left:65px;
+            line-height: 15.;
+        }
+    
+    #insight{
+            position:absolute;
+            top:480px;
+        }
+        
+    #insightsection{
+            position:absolute;
+            font: 13px sans-serif;
+            top:520px;
+            width:380px;
+            left:55px;
+            line-height: 1.5;
+        }
+    
+    #next{
+            position:absolute;
+            top:710px;
+        }
+        
+    #nextsections{
+            position:absolute;
+            font: 13px sans-serif;
+            top:740px;
+            width:380px;
+            left:55px;
+        }
+    
+</style>
+    <div id="Page">
+        <button id="buttonplayer" onclick="location.href='index.html'" value="Players">Back: Leagues Stats</button>
+        <button id="buttonwages" onclick="location.href='third.html'" value="Players">Next: Wages</button>
+    </div>
+    
+    <div id="wrapper">
+	<div class='styled-select'>
+		<form align='left'>
+            <p id = 'select' style="font-family: arial;">Change League/Position:</p>
+        <select id="leagues" align='center' onchange="change();">
+            <p style="font-family: arial;">Choose Top 5 League</p>
+			<option id="EPL" value="EPL" style="font-family: arial;">EPL</option>
+            <option id="LaLiga" value="LaLiga" style="font-family: arial;">LaLiga</option>
+            <option id="Bundesliga" value="Bundesliga" style="font-family: arial;">Bundesliga</option>
+            <option id="SerieA" value="SerieA" style="font-family: arial;">Serie A</option>
+            <option id="Ligue1" value="Ligue1" style="font-family: arial;">Ligue 1</option>
+            </select>
+        <select id="fieldpos" align='center' onchange="change();">
+            <p style="font-family: arial;"></p>
+            <option value="ST" style="font-family: arial;">Striker</option>
+			<option value="CM" style="font-family: arial;">Midfielder</option>
+            <option value="CB" style="font-family: arial;">Defender</option>
+            <option value="GK" style="font-family: arial;">GoalKeeper</option>
+        </select>
+		</form>
+	</div>
+    </div>   
+<body>
+    <div class="sticky">
+        <h1 style="font-family: arial;">Top 5 Leagues and Players</h1>
+    </div>
+    <img STYLE="position:absolute; TOP:5px; LEFT:520px; WIDTH:150px; HEIGHT:100px" SRC="./data/epl.png">
+    <img STYLE="position:absolute; TOP:10px; LEFT:680px; WIDTH:80px; HEIGHT:80px" SRC="./data/laliga.png">
+    <img STYLE="position:absolute; TOP:5px; LEFT:750px; WIDTH:140px; HEIGHT:90px" SRC="./data/bundesliga.png">
+    <img STYLE="position:absolute; TOP:15px; LEFT:880px; WIDTH:60px; HEIGHT:70px" SRC="./data/seriea.png">
+    <img STYLE="position:absolute; TOP:15px; LEFT:955px; WIDTH:70px; HEIGHT:70px" SRC="./data/ligue1.png">
+    <h2 style="font-family: arial;">Top 5 Leagues Player Stat vs Non Top5</h2>
+    <div id='VisualizationSec'>
+        <p style="font-family: arial;">The four major positions:</p>
+        <ul>
+            <li>Striker</li><br/>
+            <li>Midfielder</li><br/>
+            <li>Defender</li><br/>
+            <li>Goalkeeper</li><br/>
+        </ul> 
+        <p style="font-family: arial;">Stats rank from 0 up to 100</p>
+        <p style="font-family: arial;">The best player in the world has overall of 90</p>
+    </div>
+    <h4 id='insight' style="font-family: arial;">Some Insight</h4>
+    <div id='insightsection'>
+            <ul>
+                <li>Strikers in the top 5 leagues are more focused <br /> in the relevant skills. </li><br />
+                <li>Agility is important for a striker. </li><br />
+                <li>Bundesliga, Serie A and Ligue 1 has worse <br />goalkeepers compared to the rest. </li><br />
+            </ul> 
+    </div>
+
+    <h4 id='radarTitle' style="font-family: arial;">Radar chart of average stats</h4>
+    
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="./script/radar_chart.js" charset="utf-8"></script>
+
+        <div id="radar" class="container">
+
+            <script>
+                // draw radar chart based on position selection 
+                var league = "EPL";
+                var fieldpos = 'ST';
+                // Draw the chart, get a reference the created svg element :
+                RadarChart(league,fieldpos)
+                
+                // upon selection in dropdown  box
+                d3.selectAll("#fieldpos").on("change", change);
+                      function change() {
+                                    
+                                    // grab selected id
+                                    var e = document.getElementById("fieldpos");
+                                    var f = document.getElementById("leagues");
+                                    
+                                    // grab corresponding values
+                                    var leagues = f.options[f.selectedIndex].value
+                                    var field = e.options[e.selectedIndex].value;
+                                    // remove current graph
+                                    var s = d3.selectAll('svg');
+                                    s = s.remove()
+                                    // redraw 
+                                    RadarChart(leagues,field)
+
+                            };
+
+            </script>
+            </div>
+
+</body>
+</html>

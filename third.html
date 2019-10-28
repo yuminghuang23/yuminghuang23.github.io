@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--script data-require="d3@3.5.3" data-semver="3.5.3" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.js"></script-->
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+  <style>
+      
+    .axis path,
+    .axis line {
+          stroke: #000;
+          fill:none;
+          shape-rendering: crispEdges;
+    }
+      
+    div.sticky {
+          top: 0;
+          padding: 0.1px;
+          background-color: #cae8ca;
+        }
+      
+    .line {
+      stroke: steelblue;
+      fill:none;
+      stroke-width: 1.5px;
+    }
+    
+    .line2 {
+      stroke: steelblue;
+      fill:none;
+      stroke-width: 1.5px;
+    }
+      
+    h1 {
+          padding-left: 10px;
+      }
+    h2 {
+          padding-left: 10px;
+          padding-bottom: 10px;
+          top: 20px;
+          color:burlywood;
+        }
+    h3 {
+          padding-left: 45px;
+        }
+    h5 {
+          padding-left: 45px;
+        }
+    
+    #buttonplayer{
+            position:absolute;
+            top:30px;
+            right:100px;
+            width: 140px;
+        }
+        
+    #buttonwages{
+            position:absolute;
+            top:50px;
+            right:100px;
+            width: 140px;
+        }
+        
+    #changepage {
+            position:absolute;
+            top:10px;
+            right:100px;
+            height: 250px;
+        }
+    
+    #lineTitle1{
+            position:absolute;
+            top: 130px;
+            left: 360px;
+       }
+      
+    #multilinewage{
+            position:absolute;
+            top:180px;
+            left:360px;
+        }
+     
+    #lineTitle2{
+            position:absolute;
+            top: 470px;
+            left: 360px;
+       }
+      
+    #multilinestats {
+            position:absolute;
+            top:520px;
+            left:360px;
+        }
+    
+    #insight{
+            position:absolute;
+            top:470px;
+        }
+        
+    #insightsection{
+            position:absolute;
+            font: 13px sans-serif;
+            top:530px;
+            width:260px;
+            left:55px;
+            line-height: 1.5;
+        }
+    
+    #next{
+            position:absolute;
+            top:710px;
+        }
+        
+    #nextsections{
+            position:absolute;
+            font: 13px sans-serif;
+            top:740px;
+            width:300px;
+            left:65px;
+        }
+    
+    #dropdown_title {
+            position:absolute;
+            font: 12px sans-serif;
+            top:180px;
+            left:145px;
+        }
+      
+    #radio1{
+	        position:absolute;
+            left: 150px;
+            top: 230px;
+        }
+      
+    #radio2{
+	        position:absolute;
+            left: 150px;
+            top: 270px;
+        }
+    
+    #radio3{
+	        position:absolute;
+            left: 150px;
+            top: 310px;
+        }
+    
+    #radio4{
+	        position:absolute;
+            left: 150px;
+            top: 350px;
+        }
+      
+  </style>
+</head>
+    <div class='radio'>
+						<label id='radio1'>
+							<input type="radio" name="gender" value="ST" onclick='change(this.value)' checked> Striker
+						</label>
+						<label id='radio2'>
+							<input type="radio" name="gender" value="CM" onclick='change(this.value)'> Midfielder
+						</label>
+						<label id='radio3'>
+							<input type="radio" name="gender" value="CB" onclick='change(this.value)'> Defender
+						</label>
+                        <label id='radio4'>
+							<input type="radio" name="gender" value="GK" onclick='change(this.value)'> Goalkeeper
+						</label>
+					</div>
+    <div id="Page">
+        <button id="buttonplayer" onclick="location.href='index.html'" value="Players">Home: Leagues Stats</button>
+        <button id="buttonwages" onclick="location.href='second.html'" value="Players">Back: Player Stats</button>
+    </div>
+    <p id = 'dropdown_title' style="font-family: arial;" >Change Position:</p>
+<body>
+    <div class="sticky">
+        <h1 style="font-family: arial;">Top 5 Leagues and Players</h1>
+    </div>
+    <img STYLE="position:absolute; TOP:5px; LEFT:520px; WIDTH:150px; HEIGHT:100px" SRC="./data/epl.png">
+    <img STYLE="position:absolute; TOP:10px; LEFT:680px; WIDTH:80px; HEIGHT:80px" SRC="./data/laliga.png">
+    <img STYLE="position:absolute; TOP:5px; LEFT:750px; WIDTH:140px; HEIGHT:90px" SRC="./data/bundesliga.png">
+    <img STYLE="position:absolute; TOP:15px; LEFT:880px; WIDTH:60px; HEIGHT:70px" SRC="./data/seriea.png">
+    <img STYLE="position:absolute; TOP:15px; LEFT:955px; WIDTH:70px; HEIGHT:70px" SRC="./data/ligue1.png">
+    <h2 style="font-family: arial;">Relationship Between Wage, Stats and Age</h2>
+    <h3 id='insight' style="font-family: arial;">Some Insight</h3>
+    <div id='insightsection'>
+        <p style="font-family: arial;">
+        <ul>
+                <li>Strikers make the most at age 33 </li><br />
+                <li>Golden age is early 20s to early 30s.</li><br />
+                <li>Top goalkeepers wage grow as they gets older.</li><br />
+            </ul> 
+        </p>
+    </div>
+    
+    <h4 id='lineTitle1' style="font-family: arial;">Average Wage vs Age</h4>
+    <h4 id='lineTitle2' style="font-family: arial;">Average Stats vs Age</h4>
+    <div id='multilinewage'></div>
+    <div id='multilinestats'></div>
+    <script src="./script/line_wage.js"></script>
+    <script src="./script/line_stats.js"></script>
+    
+  <script>
+      // defualts striker 
+        DrawMultiLine_wage('ST_wage.tsv')
+        DrawMultiLine_stats('ST_wage.tsv')
+        
+        // update line chart
+        d3.selectAll("#leagues").on("change", change);
+        
+        function change(value){
+            //console.log(value)
+            if(value=="ST"){
+                DrawMultiLine_wage('ST_wage.tsv');
+                DrawMultiLine_stats('ST_wage.tsv');
+            };
+            if(value=="CM"){
+                DrawMultiLine_wage('CM_wage.tsv');
+                DrawMultiLine_stats('CM_wage.tsv');
+            };
+            if(value=="CB"){
+                DrawMultiLine_wage('CB_wage.tsv');
+                DrawMultiLine_stats('CB_wage.tsv');
+            };
+            if(value=="GK"){
+                DrawMultiLine_wage('GK_wage.tsv');
+                DrawMultiLine_stats('GK_wage.tsv');
+            };
+        }
+  </script>
+</body>
+
+</html>

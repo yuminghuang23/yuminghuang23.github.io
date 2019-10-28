@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Top 5 Leagues and It's Player </title>
+    <script src="//d3js.org/d3.v4.min.js" charset="utf-8"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+        
+        div.sticky {
+          top: 0;
+          padding: 0.1px;
+          background-color: #cae8ca;
+          
+        }
+        
+        h1 {
+          padding-left: 10px;
+        }
+        h2 {
+          padding-left: 10px;
+          padding-bottom: 10px;
+          top: 20px;
+          color:burlywood;
+        }
+        h3 {
+          padding-left: 35px;
+        }
+        h4 {
+          padding-left: 35px;
+        }
+        h5 {
+          padding-left: 35px;
+        }
+        
+        div.tooltip { 
+          position: fixed;     
+          text-align: center;     
+          width: 140px;          
+          height: 40px;         
+          padding: 0px;       
+          font: 12px sans-serif;    
+          background: #FFA07A;
+          border: 0px;  
+          border-radius: 4px;	
+          pointer-events: none;     
+        }
+
+        .labels {
+            fill: white;
+        }
+        
+        #intro{
+            position:absolute;
+            font: 13px sans-serif;
+            top:180px;
+            width:320px;
+            left:45px;
+            line-height: 1.5;
+        }
+        
+        #Visualization{
+            position:absolute;
+            top:370px;
+        }
+        
+        #VisualizationSec{
+            position:absolute;
+            font: 13px sans-serif;
+            width:320px;
+            top:410px;
+            left:45px;
+            line-height: 1.5;
+        }
+        
+        #insight{
+            position:absolute;
+            top:440px;
+        }
+        
+        #insightsection{
+            position:absolute;
+            font: 13px sans-serif;
+            top:480px;
+            width:320px;
+            left:50px;
+            line-height: 1.5;
+        }
+        
+        #next{
+            position:absolute;
+            top:710px;
+        }
+        
+        #nextsections{
+            position:absolute;
+            font: 13px sans-serif;
+            top:740px;
+            width:320px;
+            left:50px;
+        }
+        
+        #buttonplayer{
+            position:absolute;
+            top:30px;
+            right:100px;
+            width: 140px;
+        }
+        
+        #buttonwages{
+            position:absolute;
+            top:50px;
+            right:100px;
+            width: 140px;
+        }
+        
+        #changepage {
+            position:absolute;
+            top:10px;
+            right:100px;
+            height: 250px;
+        }
+
+        #leaguesdropdown {
+            position:absolute;
+            top:150px;
+            left:1200px;
+        }
+        
+        #dropdown_title {
+            position:absolute;
+            font: 12px sans-serif;
+            top:140px;
+            left:1030px;
+        }
+        
+        #worldmap {
+            position:absolute;
+            top:170px;
+            left:500px;
+            height: 250px;
+        }
+        
+        #mapTitle{
+            position:absolute;
+            top: 125px;
+            left: 480px;
+        }
+        
+        #barchartTitle{
+            position:absolute;
+            top: 570px;
+            left: 90px;
+        }
+        
+        #vis {
+            position:absolute;
+            top:620px;
+            left:100px;
+            height: 250px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="sticky">
+        <h1 style="font-family: arial;">Top 5 Leagues and Players</h1>
+    </div>
+    <img STYLE="position:absolute; TOP:5px; LEFT:520px; WIDTH:150px; HEIGHT:100px" SRC="./data/epl.png">
+    <img STYLE="position:absolute; TOP:10px; LEFT:680px; WIDTH:80px; HEIGHT:80px" SRC="./data/laliga.png">
+    <img STYLE="position:absolute; TOP:5px; LEFT:750px; WIDTH:140px; HEIGHT:90px" SRC="./data/bundesliga.png">
+    <img STYLE="position:absolute; TOP:15px; LEFT:880px; WIDTH:60px; HEIGHT:70px" SRC="./data/seriea.png">
+    <img STYLE="position:absolute; TOP:15px; LEFT:955px; WIDTH:70px; HEIGHT:70px" SRC="./data/ligue1.png">
+    <h2 style="font-family: arial;">Country's Contirbution to Top 5 Leagues </h2>
+    <h4 style="font-family: arial;">Overview</h4>
+    <div id='intro' style="font-family: arial;">
+        <ul>
+            <li>There are 265 million soccer players in the world.  
+            <li>Of these there are 18,000 professional players playing in top 2 or 3 leagues around the world. 
+            <li>Off which around 2800 players are in the top 5 leagues.
+        </ul>
+        <p style="font-family: arial;">&nbsp;&nbsp;Top 5 leagues are:</p>
+        <ul>
+            <li>England:    English Premier League</li>
+            <li>Spain:  LaLiga</li>
+            <li>German: Bundesliga</li>
+            <li>Italy:  Serie A</li>
+            <li>France: Ligue 1</li>
+        </ul> 
+    </div>
+    <!--h4 id='Visualization' style="font-family: arial;">Visualization</h4>
+    <div id='VisualizationSec'>
+         
+        <p style="font-family: arial;">The map shows selected league in purple, with lines joined to difference countries of player's nationality. Click on map to zoom in.</p> 
+        <p style="font-family: arial;">Barchart shows the top 20 countries in terms of player numbers. </p>
+    </div-->
+    <h4 id='insight' style="font-family: arial;">Some Insight</h4>
+    <div id='insightsection' style="font-family: arial;">
+        <ul>
+            <li>Most players are local origin.<br/>
+            <li>Major contributors are Europe and South America.<br/>
+            <li>Particular Brazil and Argentina.<br/>
+        </ul>
+    </div>
+
+    <h4 id='mapTitle' style="font-family: arial;">Map connecting league and player's country</h4>
+    <h4 id='barchartTitle' style="font-family: arial;">Top 20 country in terms of player number</h4>
+    <div id="Page">
+        <button id="buttonplayer" onclick="location.href='second.html'" value="Players">Next: Player Stats</button>
+        <button id="buttonwages" onclick="location.href='third.html'" value="Players">Jump to: Wages</button>
+    </div>
+    
+    <div id="wrapper">
+	<div class='styled-select'>
+        <p id = 'dropdown_title' style="font-family: arial;" >Select one of the top 5 League</p>
+		<select id="leaguesdropdown" align='center'>
+			<option id="EPL" value="EPL" style="font-family: arial;">EPL</option>
+            <option id="LaLiga" value="LaLiga" style="font-family: arial;">LaLiga</option>
+            <option id="Bundesliga" value="Bundesliga" style="font-family: arial;">Bundesliga</option>
+            <option id="SerieA" value="SerieA" style="font-family: arial;">Serie A</option>
+            <option id="Ligue1" value="Ligue1" style="font-family: arial;">Ligue 1</option>
+			</select>
+
+	</div>
+    </div>
+    <div id="worldmap"></div>
+    <div id="vis"></div>
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="./script/Visualization_Map.js"></script>
+    <script src="./script/barchart.js".></script>
+    
+    <script>
+        // defualts to map and barchart 
+        DrawConnectionMap('EPL')
+        update('EPL_country');
+        
+        // update map and bar chart 
+        d3.selectAll("#leaguesdropdown").on("change", change);
+                          function change() {
+
+                                        var e = document.getElementById("leaguesdropdown");
+                                        //console.log(e.selectedIndex)
+                                        var whichYear = e.options[e.selectedIndex].value;
+                                        var s = d3.selectAll('svg');
+                                        //s = s.remove();
+
+                                        if(whichYear=="EPL"){
+                                            DrawConnectionMap('EPL');
+                                            update('EPL_country');
+                                        };
+                                        if(whichYear=="LaLiga"){
+                                            DrawConnectionMap('LaLiga');
+                                            update('LaLiga_country');
+                                        };
+                                        if(whichYear=="Bundesliga"){
+                                            DrawConnectionMap('Bundesliga');
+                                            update('Bundesliga_country');
+                                        };
+                                        if(whichYear=="SerieA"){
+                                            DrawConnectionMap('SerieA');
+                                            update('SerieA_country');
+                                        };
+                                        if(whichYear=="Ligue1"){
+                                            DrawConnectionMap('Ligue1');
+                                            update('Ligue1_country');
+                                        };
+
+                                };
+
+    </script>
+</body>
+</html>
