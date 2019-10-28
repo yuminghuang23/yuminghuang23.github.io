@@ -191,14 +191,14 @@
                       fill: "#808080",
                     })	
                 // highlight
-                //d3.select(this).attr("r", 10).style("fill", "black");
+                d3.select(this).attr("r", 10).style("fill", "black");
                 })					
                 .on("mouseout", function(d) {		
                     div.transition()		
                         .duration(50)		
                         .style("opacity", 0); 
                 // highlight
-                //d3.select(this).attr("r", 10).style("fill", "#9f0000")
+                d3.select(this).attr("r", 10).style("fill", "#9f0000")
                 });
            
           /*

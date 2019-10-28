@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <h1>D3.js Coding Assignment</h1>
+        <h4>By: Yuming Huang, 29054141</h4>
+        <link rel="stylesheet", href="yuming.css">
+        
+    </head>
+    
+    <body>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        
+        <script>
+            
+            // define the canvas
+            var width = window.innerWidth;
+            var height = window.innerHeight;
+            
+            // define svg
+            var svg = d3.select("body").append("svg")
+                            .attr("width",width)
+                            .attr("height",height);
+            
+            // Define the div for the tooltip
+            var div = d3.select("body").append("div")	
+                .attr("class", "tooltip")				
+                .style("opacity", 0);
+            
+            // read in data
+            d3.json("data.json").get(function(data) {
+                //console.log(data.links[0].node01);
+                //console.log(data.links);
+                //console.log(data.nodes);
+                
+                // append x and y values from nodes into links as x1,x2,y1,y2 so lines can be draw first, so that circle will be on top of the lines 
+                for ( i in data.links){
+                    for( j in data.nodes)
+                    {
+                        // for node01 
+                        if (data.nodes[j].id === data.links[i].node01)
+                            {
+                                data.links[i].x1 = data.nodes[j].x;
+                                data.links[i].y1 = data.nodes[j].y;
+                            }
+                        // for node02 
+                        if  (data.nodes[j].id === data.links[i].node02){
+
+                                data.links[i].x2 = data.nodes[j].x;
+                                data.links[i].y2 = data.nodes[j].y;
+                        }
+                        
+                    }
+                }
+                
+                //console.log(data.links);
+                        
+                // need to find the corresponding amount value too, using a similar method of for loop 
+                for ( i in data.nodes){
+                    
+                            var radius = 0;
+                            var linkn = 0;
+                            
+                            for( j in data.links)
+                            {
+                                if (data.nodes[i].id === data.links[j].node01 || data.nodes[i].id === data.links[j].node02)
+                            {
+                                radius += data.links[j].amount;
+                                linkn += 1
+                            }
+
+                            } 
+                            // create amount into data.nodes
+                            data.nodes[i].amount = radius;
+                            data.nodes[i].links = linkn;
+                        }
+                //console.log(data.nodes);
+                
+                // draw line
+                svg.selectAll("line")
+                    .data(data.links)
+                    .enter().append("line")
+                    .attr("class", function(d){ return d.node01 + " " + d.node02; })
+                    .attr("x1", function(d) { return d.x1; })
+                    .attr("y1", function(d) { return d.y1; })
+                    .attr("x2", function(d) { return d.x2; })
+                    .attr("y2", function(d) { return d.y2; })
+                    .attr("stroke-width", function(d) { return d.amount/100; })
+                    .attr("stroke","#66CDAA");
+                
+                // draw circle
+                svg.selectAll("circle")
+                    .data(data.nodes)
+                    .enter().append("circle")
+                    .attr("class", function(d){ return d.id; })
+                    .attr("cx", function(d) { return d.x; })
+                    .attr("cy", function(d) { return d.y; })
+                    .attr("r", function(d) {return d.amount/80; })
+                    .style("fill","#1E90FF")
+                    // add mouserover interactions
+                    .on("mouseover", function(d){
+                        d3.selectAll("circle")
+                        .attr("opacity", 0.1); 
+
+                        d3.selectAll("line")
+                        .attr("opacity", 0.1); 
+                        
+                        // tooltip style
+                        div.transition()		
+                        .duration(20)		
+                        .style("opacity", .9);		
+                        
+                        div.html(d.id + "<br/>" + "total trading amount: " + d.amount
+                                + "<br/>" + "no.of links: " + d.links)	
+                        .style("left", (d3.event.pageX) + "px")		
+                        .style("top", (d3.event.pageY) + "px");	
+                    
+                        //console.log(this.__data__.id);
+                    
+                        // identify the current class and apply the opacity effect on this class in all circle. 
+                        d3.selectAll("."+this.__data__.id) 
+                        .attr("opacity", 1);
+                    
+                    })
+                    
+                    // add mouseout interatctions 
+                    .on("mouseout", function(d){
+                        d3.selectAll("circle")
+                        .attr("opacity", 1); 
+
+                        d3.selectAll("line")
+                        .attr("opacity", 1); 
+                        
+                        // tooltip style
+                        div.transition()		
+                        .duration(50)		
+                        .style("opacity", 0); });
+
+                
+            });
+ 
+        </script>
+    </body>
